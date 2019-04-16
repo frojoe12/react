@@ -4,14 +4,11 @@ export default class Toggle extends React.Component {
 
     constructor(props) {
         super(props) 
-        this.toggleOn = "ON"
-        this.toggleOff = "OFF"
         this.state = {isToggleOn: false}
         this.toggle = this.toggle.bind(this)
     }
 
     toggle() {
-        console.log("toggling")
         this.setState((state) => ({isToggleOn: !state.isToggleOn}))
     }
 
