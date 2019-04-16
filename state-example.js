@@ -17,9 +17,8 @@ export default class Clock extends Component {
     }
 
     tick() {
-        this.counter++;
-        console.log(this.state.count)
-        this.setState({date: new Date(), count: this.counter })
+        this.counter++
+        this.setState( (state) => {date: new Date(), count: this.counter })
     }
 
     render() {
