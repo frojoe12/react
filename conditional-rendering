@@ -1,0 +1,90 @@
+//  if else
+
+function List({ list }) {
+  if (!list) {
+    return null;
+  }
+
+  if (!list.length) {
+    return <p>Sorry, the list is empty.</p>;
+  } else {
+    return (
+      <div>
+        {list.map(item => <ListItem item={item} />)}
+      </div>
+    );
+  }
+}
+
+
+// ternary
+
+function Item({ item, mode }) {
+  const isEditMode = mode === 'EDIT';
+
+  return (
+    <div>
+      { isEditMode
+        ? <ItemEdit item={item} />
+        : <ItemView item={item} />
+      }
+    </div>
+  );
+}
+
+
+// with parenthises
+
+function Item({ item, mode }) {
+  const isEditMode = mode === 'EDIT';
+
+  return (
+    <div>
+      {isEditMode ? (
+        <ItemEdit item={item} />
+      ) : (
+        <ItemView item={item} />
+      )}
+    </div>
+  );
+}
+
+
+// switch
+
+function Notification({ text, state }) {
+  switch(state) {
+    case 'info':
+      return <Info text={text} />;
+    case 'warning':
+      return <Warning text={text} />;
+    case 'error':
+      return <Error text={text} />;
+    default:
+      return null;
+  }
+}
+
+
+// inline switch with iife
+
+function Notification({ text, state }) {
+  return (
+    <div>
+      {(() => {
+        switch(state) {
+          case 'info':
+            return <Info text={text} />;
+          case 'warning':
+            return <Warning text={text} />;
+          case 'error':
+            return <Error text={text} />;
+          default:
+            return null;
+        }
+      })()}
+    </div>
+  );
+}
+
+
