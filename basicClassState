@@ -1,0 +1,58 @@
+import React from 'react'
+import Person from '../Person'
+
+class Header extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      title: '1987',
+      secondary: 'year is nearly over...',
+      people: [
+        { name: 'Joe', age: 46 },
+        { name: 'John', age: 53 },
+        { name: 'Sarah', age: 28 }
+      ],
+      display: false
+    }
+  }
+
+  handleClick = type => ev => {
+    ev.preventDefault()
+    console.log(type)
+    this.setState({ display: !this.state.display })
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ title: '1988' })
+    }, 5000)
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.title !== this.state.title) {
+      this.setState({ secondary: 'A new year has begun.' })
+      this.setState({
+        people: [
+          { name: 'Joe', age: 47 },
+          { name: 'John', age: 54 },
+          { name: 'Sarah', age: 29 }
+        ]
+      })
+    }
+  }
+  render() {
+    return (
+      <div>
+        <h1>{this.state.title}</h1>
+        <h2>{this.state.secondary}</h2>
+        <button onClick={this.handleClick('showList')}>Show list</button>
+        {this.state.display
+          ? this.state.people.map(person => (
+              <Person name={person.name} age={person.age} key={person.name} />
+            ))
+          : null}
+      </div>
+    )
+  }
+}
+
+export default Header
