@@ -1,3 +1,5 @@
+// if using a handler non-arrow function add a bind(this) to the constructor 
+
 import React from 'react'
 
 export default class Toggle extends React.Component {
