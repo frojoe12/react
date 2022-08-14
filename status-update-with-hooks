@@ -1,0 +1,48 @@
+import react, {useState} from "react"
+
+const StatusTest = ({name}) => {
+
+    const [currentStatus,setCurrentStatus] = useState([
+        {
+            id: 10,
+            name:"John",
+            age:47
+        },
+        {
+            id:11,
+            name:"Sarah",
+            age:32
+        }
+    ])
+
+    const handleClick = (currentUser) => () => {
+        const newState = currentStatus.map(obj => {
+
+            if (obj.id === currentUser.id) {
+              return {...obj, age: currentUser.age+1};
+            }
+      
+            return obj;
+          });
+      
+          setCurrentStatus(newState);
+    }
+
+    return (
+    <div>
+        {currentStatus.map(currentUser => (
+            <p key={currentUser.id}>
+                <span>Hi {currentUser.name}, you are {currentUser.age} years old.</span>
+                <br />
+            <button onClick={handleClick(currentUser)
+            }>Increase Age</button>
+            
+
+            </p>
+        ))}
+        
+    </div>
+    )
+}
+
+export default StatusTest
