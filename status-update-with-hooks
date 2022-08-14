@@ -64,7 +64,7 @@ const StatusTest = ({name}) => {
         }
         if (type==="age") {
             const reg = new RegExp('^[0-9]+$');
-            if (reg.test(input) || input.length===0) {setUserInput(state => ({...state, age:input}))}
+            if (reg.test(input) || input.length===0) {setUserInput(state => ({...state, age:parseInt(input)}))}
         }
     }
     const addNewUser = () => {
