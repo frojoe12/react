@@ -2,6 +2,11 @@ import react, {useState} from "react"
 
 const StatusTest = ({name}) => {
 
+    const [userInput,setUserInput] = useState({
+        name: "",
+        age: 0
+    })
+
     const [currentStatus,setCurrentStatus] = useState([
         {
             id: 10,
@@ -12,20 +17,55 @@ const StatusTest = ({name}) => {
             id:11,
             name:"Sarah",
             age:32
+        },
+        {
+            id:12,
+            name:"James",
+            age:15
+        },
+        {
+            id:13,
+            name:"Susan",
+            age:60
+        },
+        {
+            id:14,
+            name:"Gemma",
+            age:27
         }
     ])
 
-    const handleClick = (currentUser) => () => {
-        const newState = currentStatus.map(obj => {
+    const increaseAge = (currentUser) => (event) => {
+        // send currentUser array
+        // send event in second callback
+        const newState = currentStatus.map(user => {
 
-            if (obj.id === currentUser.id) {
-              return {...obj, age: currentUser.age+1};
+            if (user.id === currentUser.id) {
+              return {...user, age: currentUser.age+1};
             }
       
-            return obj;
+            return user;
           });
+
+          // console.log(newState)
       
           setCurrentStatus(newState);
+    }
+    const removeUser = (currentUser) => (event) => {
+        const newState = currentStatus.filter(user=>(user.id !== currentUser.id)) 
+        setCurrentStatus(newState);
+    }
+    const updateUserInput = (type) => (event) => {
+        if (type!=="name" && type!=="age") {return false;}
+        const input = event.target.value;
+        if (type==="name") {
+            const reg = new RegExp('^[a-zA-Z]+$');
+            if (reg.test(input) || input.length===0) {setUserInput(state => ({...state, name:input}))}
+        }
+        if (type==="age") {
+            const reg = new RegExp('^[0-9]+$');
+            if (reg.test(input) || input.length===0) {setUserInput(state => ({...state, age:input}))}
+        }
     }
 
     return (
@@ -34,12 +74,20 @@ const StatusTest = ({name}) => {
             <p key={currentUser.id}>
                 <span>Hi {currentUser.name}, you are {currentUser.age} years old.</span>
                 <br />
-            <button onClick={handleClick(currentUser)
+            <button onClick={increaseAge(currentUser)
             }>Increase Age</button>
-            
+            <br />
+            <button onClick={removeUser(currentUser)
+            }>Remove User</button>
 
             </p>
         ))}
+
+        <div>
+            <h3>Add new User</h3>
+            <label htmlFor="name">Name: </label><input onChange={updateUserInput("name")} id="name" type="text" value={userInput.name} /><br />
+            <label htmlFor="age">Age: </label><input onChange={updateUserInput("age")} id="age" type="text" value={userInput.age} />
+        </div>
         
     </div>
     )
